@@ -11899,6 +11899,15 @@ LHCb RK RK* 2022:
                 [-0.017, 0.004, 1.000, 0.016],
                 [0.005, -0.033, 0.016, 1.000]]
 
+CMS RK 2024:
+  experiment: CMS
+  url: https://arxiv.org/abs/2401.07090
+  values:
+    - name: <Rmue>(B+->Kll)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.78 +0.46 -0.23 +0.09 -0.05
+
 
 Belle B->K*mumu LFU 2016:
    experiment: Belle
