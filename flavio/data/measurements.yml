@@ -11908,6 +11908,15 @@ CMS RK 2024:
       q2max: 6.0
       value: 0.78 +0.46 -0.23 +0.09 -0.05
 
+LHCb RK high q2 2025:
+  experiment: LHCb
+  url: https://link.springer.com/article/10.1007/JHEP03(2025)284
+  values:
+    - name: <Rmue>(B+->Kll)
+      q2min: 14.3
+      q2max: 23.0
+      value: 1.08 +0.11 -0.09 +0.04 -0.04
+
 
 Belle B->K*mumu LFU 2016:
    experiment: Belle
