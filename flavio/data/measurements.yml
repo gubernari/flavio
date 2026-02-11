@@ -3801,6 +3801,16 @@ LHCb B+->Kmumu BR 2014:
       value: 12.1 ± 0.4 ± 0.6 e-9
 
 
+CMS B+->Kmumu BR 2024:
+  experiment: CMS
+  url: https://arxiv.org/abs/2401.07090
+  values:
+    - name: <dBR/dq2>(B+->Kmumu)
+      q2min: 1.1
+      q2max: 6.0
+      value: 2.53 ± 0.14 e-8
+
+
 LHCb B0->Kmumu BR 2014:
   experiment: LHCb
   inspire: Aaij:2014pli
