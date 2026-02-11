@@ -11549,6 +11549,12 @@ GSSS combination Bs->mumu 2022:
     - [1.0, -0.17763283049964992]
     - [-0.17763283049964992, 1.0]
 
+PDG Bs->mumu 2025:
+  experiment: PDG
+  url: https://ccwww.kek.jp/pdg/2025/listings/rpp2025-list-Bs-zero.pdf
+  values:
+    BR(Bs->mumu): 3.34 ± 0.27 e-9
+
 
 # This is a Gaussian distribution fitted to the numerical combination of
 # 'ATLAS Bs->mumu 2018', 'CMS Bs->mumu 2019', and 'LHCb Bs->mumu 2021'
