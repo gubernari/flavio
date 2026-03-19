@@ -28,9 +28,6 @@ def get_ff(q2, par, B, P):
 
 # get subleading hadronic contribution
 def get_subleading(q2, wc_obj, par_dict, B, P, lep, cp_conjugate):
-    if 'B' in B and 'pi' in P:
-        # skip subleading correction for B->pi decays
-        return {}
     if q2 <= 9:
         sub_name = B+'->'+P + 'll subleading effects at low q2'
         return AuxiliaryQuantity[sub_name].prediction(par_dict=par_dict, wc_obj=wc_obj, q2=q2, cp_conjugate=cp_conjugate)

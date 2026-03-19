@@ -48,6 +48,15 @@ class TestBPll(unittest.TestCase):
         self.assertAlmostEqual(flavio.sm_prediction("Rmue(B+->Kll)", q2=6), 1, delta=1e-3)
         self.assertAlmostEqual(flavio.sm_prediction("Rmue(B0->Kll)", q2=6), 1, delta=1e-3)
 
+    def test_bpill_subleading_ckm_hk(self):
+        par0 = par.copy()
+        h0 = get_subleading(5, wc_obj, par0, 'B0', 'pi0', 'mu', False)
+        self.assertEqual(h0['V'], 0)
+        park = par.copy()
+        park['B0->pi0 deltaC9K a Re'] = 1.0
+        hk = get_subleading(5, wc_obj, park, 'B0', 'pi0', 'mu', False)
+        self.assertNotEqual(hk['V'], h0['V'])
+
     def test_bktautau(self):
         brbin = flavio.sm_prediction('<dBR/dq2>(B+->Ktautau)', 12, 24)
         brtot = flavio.sm_prediction('BR(B+->Ktautau)')

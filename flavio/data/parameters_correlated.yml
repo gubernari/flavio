@@ -264,6 +264,68 @@
     - B+->K+ deltaC9 c Im: 0 ± 0.2
   correlation: 0.99
 
+# CKM-resolved subleading hadronic effects in B->pill
+-
+  values:
+    - B0->pi0 deltaC9 a Re: 0 ± 0.08
+    - B+->pi+ deltaC9 a Re: 0 ± 0.08
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9 a Im: 0 ± 0.08
+    - B+->pi+ deltaC9 a Im: 0 ± 0.08
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9 b Re: 0 ± 0.03
+    - B+->pi+ deltaC9 b Re: 0 ± 0.03
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9 b Im: 0 ± 0.03
+    - B+->pi+ deltaC9 b Im: 0 ± 0.03
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9 c Re: 0 ± 0.2
+    - B+->pi+ deltaC9 c Re: 0 ± 0.2
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9 c Im: 0 ± 0.2
+    - B+->pi+ deltaC9 c Im: 0 ± 0.2
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K a Re: 0 ± 0.08
+    - B+->pi+ deltaC9K a Re: 0 ± 0.08
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K a Im: 0 ± 0.08
+    - B+->pi+ deltaC9K a Im: 0 ± 0.08
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K b Re: 0 ± 0.03
+    - B+->pi+ deltaC9K b Re: 0 ± 0.03
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K b Im: 0 ± 0.03
+    - B+->pi+ deltaC9K b Im: 0 ± 0.03
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K c Re: 0 ± 0.2
+    - B+->pi+ deltaC9K c Re: 0 ± 0.2
+  correlation: 0.99
+-
+  values:
+    - B0->pi0 deltaC9K c Im: 0 ± 0.2
+    - B+->pi+ deltaC9K c Im: 0 ± 0.2
+  correlation: 0.99
+
 # B->D* form factors, HFAG 2016
 -
   values:

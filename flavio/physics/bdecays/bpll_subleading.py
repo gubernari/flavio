@@ -4,6 +4,7 @@ from flavio.classes import AuxiliaryQuantity, Implementation
 from flavio.physics.bdecays.common import meson_quark
 from flavio.physics.bdecays.wilsoncoefficients import wctot_dict
 from flavio.physics.common import conjugate_par, conjugate_wc, add_dict
+from flavio.physics import ckm
 from flavio.config import config
 
 # auxiliary function to construct helicity_amps_deltaC7, helicity_amps_deltaC9
@@ -35,6 +36,26 @@ def helicity_amps_deltaC9(q2, deltaC9, par, B, P):
     """
     return _helicity_amps_deltaC(q2, deltaC9, 'v', par, B, P)
 
+
+# lambda_u/lambda_t = xi_u/xi_t, where xi_i = V_ib V_is* for b->s and V_id V_ib* for b->d transitions
+def _eps_u_over_t(par, B, P):
+    qiqj = meson_quark[(B, P)]
+    xi_u = ckm.xi('u', qiqj)(par)
+    xi_t = ckm.xi('t', qiqj)(par)
+    return xi_u/xi_t
+
+
+def _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9'):
+    process = B + '->' + P
+    return (par[process + ' ' + pname + ' a Re'] + par[process + ' ' + pname + ' b Re'] * q2
+            + 1j * (par[process + ' ' + pname + ' a Im'] + par[process + ' ' + pname + ' b Im'] * q2))
+
+
+def _deltaC9_constant_par(par, B, P, pname='deltaC9'):
+    process = B + '->' + P
+    return par[process + ' ' + pname + ' c Re'] + 1j * par[process + ' ' + pname + ' c Im']
+
+
 # One possibility is to parametrize the effective shift in C7 or C9 as a simple
 # polynomial in q2.
 
@@ -47,13 +68,32 @@ def helicity_amps_deltaC7_polynomial(q2, par, B, P):
 # the contribution to the transverse (+ and -) amplitudes has to start with
 # 1/q2, otherwise one effectively sets corrections to B->Pgamma to zero.
 def helicity_amps_deltaC9_polynomial(q2, par, B, P):
-    deltaC9   =( par[B+'->'+P+' deltaC9 a Re']  + par[B+'->'+P+' deltaC9 b Re'] *q2
-             +1j*( par[B+'->'+P+' deltaC9 a Im']  + par[B+'->'+P+' deltaC9 b Im'] *q2 ))
+    deltaC9 = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9')
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
 
 # a constant shift, e.g. for high q^2
 def helicity_amps_deltaC9_constant(q2, par, B, P):
-    deltaC9   = par[B+'->'+P+' deltaC9 c Re'] + 1j*par[B+'->'+P+' deltaC9 c Im']
+    deltaC9 = _deltaC9_constant_par(par, B, P, pname='deltaC9')
+    return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
+
+
+def helicity_amps_deltaC9_hk_polynomial(q2, par, B, P):
+    r"""Subleading hadronic correction for $B\to\pi\ell^+\ell^-$ with explicit
+    CKM structure:
+    $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$."""
+    eps_u = _eps_u_over_t(par, B, P)
+    deltaC9_H = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9')
+    deltaC9_K = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9K')
+    deltaC9 = (1 + eps_u) * deltaC9_H - eps_u * deltaC9_K
+    return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
+
+
+def helicity_amps_deltaC9_hk_constant(q2, par, B, P):
+    r"""Constant high-$q^2$ analogue of `helicity_amps_deltaC9_hk_polynomial`."""
+    eps_u = _eps_u_over_t(par, B, P)
+    deltaC9_H = _deltaC9_constant_par(par, B, P, pname='deltaC9')
+    deltaC9_K = _deltaC9_constant_par(par, B, P, pname='deltaC9K')
+    deltaC9 = (1 + eps_u) * deltaC9_H - eps_u * deltaC9_K
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
 
 
@@ -71,7 +111,7 @@ def fct_deltaC9_polynomial(B, P):
         par = par_dict.copy()
         if cp_conjugate:
             par = conjugate_par(par)
-        return helicity_amps_deltaC9_polynomial(q2, par_dict, B, P)
+        return helicity_amps_deltaC9_polynomial(q2, par, B, P)
     return fct
 
 def fct_deltaC9_constant(B, P):
@@ -79,7 +119,25 @@ def fct_deltaC9_constant(B, P):
         par = par_dict.copy()
         if cp_conjugate:
             par = conjugate_par(par)
-        return helicity_amps_deltaC9_constant(q2, par_dict, B, P)
+        return helicity_amps_deltaC9_constant(q2, par, B, P)
+    return fct
+
+
+def fct_deltaC9_hk_polynomial(B, P):
+    def fct(wc_obj, par_dict, q2, cp_conjugate):
+        par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
+        return helicity_amps_deltaC9_hk_polynomial(q2, par, B, P)
+    return fct
+
+
+def fct_deltaC9_hk_constant(B, P):
+    def fct(wc_obj, par_dict, q2, cp_conjugate):
+        par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
+        return helicity_amps_deltaC9_hk_constant(q2, par, B, P)
     return fct
 
 # AuxiliaryQuantity & Implementatation: subleading effects at LOW q^2
@@ -123,3 +181,31 @@ for had in [('B0','K0'), ('B+','K+'), ]:
         i = Implementation(name=iname, quantity=quantity,
                        function=fct_deltaC9_constant(B=had[0], P=had[1]))
         i.set_description(r"Effective constant shift in the Wilson coefficient $C_9(\mu_b)$.")
+
+
+# AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in B->pill
+for had in [('B0', 'pi0'), ('B+', 'pi+')]:
+    process = had[0] + '->' + had[1] + 'll'
+
+    quantity = process + ' subleading effects at low q2'
+    a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
+    a.description = ('Contribution to ' + process + ' helicity amplitudes from'
+                    ' subleading hadronic effects (i.e. all effects not included'
+                    r' elsewhere) at $q^2$ below the charmonium resonances')
+    iname = process + ' deltaC9 H+K polynomial'
+    i = Implementation(name=iname, quantity=quantity,
+                   function=fct_deltaC9_hk_polynomial(B=had[0], P=had[1]))
+    i.set_description(r"Effective shift in $C_9(\mu_b)$ with CKM structure "
+                      r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$"
+                      r" as a first-order polynomial in $q^2$.")
+
+    quantity = process + ' subleading effects at high q2'
+    a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
+    a.description = ('Contribution to ' + process + ' helicity amplitudes from'
+                    ' subleading hadronic effects (i.e. all effects not included'
+                    r' elsewhere) at $q^2$ above the charmonium resonances')
+    iname = process + ' deltaC9 H+K shift'
+    i = Implementation(name=iname, quantity=quantity,
+                   function=fct_deltaC9_hk_constant(B=had[0], P=had[1]))
+    i.set_description(r"Effective constant shift in $C_9(\mu_b)$ with CKM "
+                      r"structure $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$.")
