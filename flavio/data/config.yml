@@ -144,6 +144,10 @@ implementation:
   B+->K+ll subleading effects at low q2: B+->K+ll deltaC9 polynomial
   B0->K0ll subleading effects at high q2: B0->K0ll deltaC9 shift
   B+->K+ll subleading effects at high q2: B+->K+ll deltaC9 shift
+  B0->pi0ll subleading effects at low q2: B0->pi0ll deltaC9 H+K polynomial
+  B+->pi+ll subleading effects at low q2: B+->pi+ll deltaC9 H+K polynomial
+  B0->pi0ll subleading effects at high q2: B0->pi0ll deltaC9 H+K shift
+  B+->pi+ll subleading effects at high q2: B+->pi+ll deltaC9 H+K shift
 
   # Lambdab->Lambdall subleading hadronic effects
   Lambdab->Lambdall subleading effects at low q2: Lambdab->Lambdall deltaC7 polynomial

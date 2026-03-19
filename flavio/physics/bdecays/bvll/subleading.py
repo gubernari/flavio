@@ -1,3 +1,5 @@
+#### NG edited
+
 r"""Functions to parametrize subleading hadronic effects in $B\to V\ell^+\ell^-$
 decays."""
 
