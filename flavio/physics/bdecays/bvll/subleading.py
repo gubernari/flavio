@@ -4,8 +4,30 @@ decays."""
 
 import flavio
 from flavio.classes import AuxiliaryQuantity, Implementation
+from flavio.physics.bdecays.common import meson_quark
 from flavio.physics.common import conjugate_par
+from flavio.physics import ckm
 from flavio.config import config
+
+
+def _eps_u_over_t(par, B, V):
+    qiqj = meson_quark[(B, V)]
+    xi_u = ckm.xi('u', qiqj)(par)
+    xi_t = ckm.xi('t', qiqj)(par)
+    return xi_u/xi_t
+
+
+def _deltaC_polynomial_par(q2, par, B, V, pname, h):
+    process = B + '->' + V
+    return (par[process + ' ' + pname + ' a_' + h + ' Re']
+            + par[process + ' ' + pname + ' b_' + h + ' Re'] * q2
+            + 1j * (par[process + ' ' + pname + ' a_' + h + ' Im']
+                    + par[process + ' ' + pname + ' b_' + h + ' Im'] * q2))
+
+
+def _deltaC_constant_par(par, B, V, pname, h):
+    process = B + '->' + V
+    return par[process + ' ' + pname + ' c_' + h + ' Re'] + 1j * par[process + ' ' + pname + ' c_' + h + ' Im']
 
 
 class HelicityAmpsDeltaC(object):
@@ -46,21 +68,40 @@ class HelicityAmpsDeltaC_77p_polynomial(HelicityAmpsDeltaC):
         super().__init__(*args, **kwargs)
 
     def __call__(self):
-        par = self.par
-        B = self.B
-        V = self.V
-        q2 = self.q2
-        deltaC7_0   =( par[B+'->'+V+' deltaC7 a_0 Re']  + par[B+'->'+V+' deltaC7 b_0 Re'] *q2
-                 +1j*( par[B+'->'+V+' deltaC7 a_0 Im']  + par[B+'->'+V+' deltaC7 b_0 Im'] *q2 ))
-        deltaC7p_pl  =( par[B+'->'+V+' deltaC7p a_+ Re']  + par[B+'->'+V+' deltaC7p b_+ Re'] *q2
-                 +1j*( par[B+'->'+V+' deltaC7p a_+ Im']  + par[B+'->'+V+' deltaC7p b_+ Im'] *q2 ))
-        deltaC7_mi  =( par[B+'->'+V+' deltaC7 a_- Re']  + par[B+'->'+V+' deltaC7 b_- Re'] *q2
-                 +1j*( par[B+'->'+V+' deltaC7 a_- Im']  + par[B+'->'+V+' deltaC7 b_- Im'] *q2 ))
         ha = {}
+        deltaC7_0 = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '0')
+        deltaC7p_pl = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7p', '+')
+        deltaC7_mi = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '-')
         ha['0', 'V'] = self.ha_deltaC(deltaC7_0, '7')['0', 'V']
         ha['pl', 'V'] = self.ha_deltaC(deltaC7p_pl, '7p')['pl', 'V']
         ha['mi', 'V'] = self.ha_deltaC(deltaC7_mi, '7')['mi', 'V']
         return ha
+
+
+class HelicityAmpsDeltaC_77p_hk_polynomial(HelicityAmpsDeltaC):
+    r"""CKM-resolved analogue of `HelicityAmpsDeltaC_77p_polynomial` for
+    $b\to d$ vector modes with structure
+    $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def __call__(self):
+        eps_u = _eps_u_over_t(self.par, self.B, self.V)
+        ha = {}
+        deltaC7_0_H = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '0')
+        deltaC7_0_K = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7K', '0')
+        deltaC7p_pl_H = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7p', '+')
+        deltaC7p_pl_K = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7pK', '+')
+        deltaC7_mi_H = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '-')
+        deltaC7_mi_K = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7K', '-')
+        deltaC7_0 = (1 + eps_u) * deltaC7_0_H - eps_u * deltaC7_0_K
+        deltaC7p_pl = (1 + eps_u) * deltaC7p_pl_H - eps_u * deltaC7p_pl_K
+        deltaC7_mi = (1 + eps_u) * deltaC7_mi_H - eps_u * deltaC7_mi_K
+        ha['0', 'V'] = self.ha_deltaC(deltaC7_0, '7')['0', 'V']
+        ha['pl', 'V'] = self.ha_deltaC(deltaC7p_pl, '7p')['pl', 'V']
+        ha['mi', 'V'] = self.ha_deltaC(deltaC7_mi, '7')['mi', 'V']
+        return ha
+
 
 class HelicityAmpsDeltaC_9_shift(HelicityAmpsDeltaC):
     r"""Helicity amps from an effective $q^2$-independent shift in the Wilson
@@ -69,13 +110,35 @@ class HelicityAmpsDeltaC_9_shift(HelicityAmpsDeltaC):
         super().__init__(*args, **kwargs)
 
     def __call__(self):
-        par = self.par
-        B = self.B
-        V = self.V
-        deltaC9_0   = par[B+'->'+V+' deltaC9 c_0 Re'] + 1j*par[B+'->'+V+' deltaC9 c_0 Im']
-        deltaC9_pl   = par[B+'->'+V+' deltaC9 c_+ Re'] + 1j*par[B+'->'+V+' deltaC9 c_+ Im']
-        deltaC9_mi   = par[B+'->'+V+' deltaC9 c_- Re'] + 1j*par[B+'->'+V+' deltaC9 c_- Im']
         ha = {}
+        deltaC9_0 = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '0')
+        deltaC9_pl = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '+')
+        deltaC9_mi = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '-')
+        ha['0', 'V'] = self.ha_deltaC(deltaC9_0, 'v')['0', 'V']
+        ha['pl', 'V'] = self.ha_deltaC(deltaC9_pl, 'v')['pl', 'V']
+        ha['mi', 'V'] = self.ha_deltaC(deltaC9_mi, 'v')['mi', 'V']
+        return ha
+
+
+class HelicityAmpsDeltaC_9_hk_shift(HelicityAmpsDeltaC):
+    r"""CKM-resolved analogue of `HelicityAmpsDeltaC_9_shift` for $b\to d$
+    vector modes with structure
+    $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def __call__(self):
+        eps_u = _eps_u_over_t(self.par, self.B, self.V)
+        ha = {}
+        deltaC9_0_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '0')
+        deltaC9_0_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '0')
+        deltaC9_pl_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '+')
+        deltaC9_pl_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '+')
+        deltaC9_mi_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '-')
+        deltaC9_mi_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '-')
+        deltaC9_0 = (1 + eps_u) * deltaC9_0_H - eps_u * deltaC9_0_K
+        deltaC9_pl = (1 + eps_u) * deltaC9_pl_H - eps_u * deltaC9_pl_K
+        deltaC9_mi = (1 + eps_u) * deltaC9_mi_H - eps_u * deltaC9_mi_K
         ha['0', 'V'] = self.ha_deltaC(deltaC9_0, 'v')['0', 'V']
         ha['pl', 'V'] = self.ha_deltaC(deltaC9_pl, 'v')['pl', 'V']
         ha['mi', 'V'] = self.ha_deltaC(deltaC9_mi, 'v')['mi', 'V']
@@ -85,15 +148,38 @@ class HelicityAmpsDeltaC_9_shift(HelicityAmpsDeltaC):
 def fct_deltaC7C7p_polynomial(B, V):
     def fct(wc_obj, par_dict, q2, cp_conjugate):
         par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
         return HelicityAmpsDeltaC_77p_polynomial(B, V, par, q2)()
+    return fct
+
+
+def fct_deltaC7C7p_hk_polynomial(B, V):
+    def fct(wc_obj, par_dict, q2, cp_conjugate):
+        par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
+        return HelicityAmpsDeltaC_77p_hk_polynomial(B, V, par, q2)()
     return fct
 
 
 def fct_deltaC9_constant(B, V):
     def fct(wc_obj, par_dict, q2, cp_conjugate):
         par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
         return HelicityAmpsDeltaC_9_shift(B, V, par, q2)()
     return fct
+
+
+def fct_deltaC9_hk_constant(B, V):
+    def fct(wc_obj, par_dict, q2, cp_conjugate):
+        par = par_dict.copy()
+        if cp_conjugate:
+            par = conjugate_par(par)
+        return HelicityAmpsDeltaC_9_hk_shift(B, V, par, q2)()
+    return fct
+
 
 # AuxiliaryQuantity & Implementation: subleading effects at LOW q^2
 
@@ -116,6 +202,22 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
                       r" as a first-order polynomial in $q^2$.")
 
 
+# AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in Bs->K*0ll at LOW q^2
+
+process = 'Bs->K*0ll'
+quantity = process + ' subleading effects at low q2'
+a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
+a.description = ('Contribution to ' + process + ' helicity amplitudes from'
+                ' subleading hadronic effects (i.e. all effects not included'
+                r'elsewhere) at $q^2$ below the charmonium resonances')
+iname = process + ' deltaC7, 7p H+K polynomial'
+i = Implementation(name=iname, quantity=quantity,
+               function=fct_deltaC7C7p_hk_polynomial(B='Bs', V='K*0'))
+i.set_description(r"Effective shift in $C_7(\mu_b)$ (in the $0$ and $-$ helicity amplitudes)"
+                  r" and $C_7'(\mu_b)$ (in the $+$ helicity amplitude) with CKM structure "
+                  r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$ as a first-order polynomial in $q^2$.")
+
+
 # AuxiliaryQuantity & Implementation: subleading effects at HIGH q^2
 
 for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
@@ -131,3 +233,18 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
     i = Implementation(name=iname, quantity=quantity,
                    function=fct_deltaC9_constant(B=had[0], V=had[1]))
     i.set_description(r"Effective constant shift in the Wilson coefficient $C_9(\mu_b)$.")
+
+
+# AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in Bs->K*0ll at HIGH q^2
+
+process = 'Bs->K*0ll'
+quantity = process + ' subleading effects at high q2'
+a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
+a.description = ('Contribution to ' + process + ' helicity amplitudes from'
+                ' subleading hadronic effects (i.e. all effects not included'
+                r'elsewhere) at $q^2$ above the charmonium resonances')
+iname = process + ' deltaC9 H+K shift'
+i = Implementation(name=iname, quantity=quantity,
+               function=fct_deltaC9_hk_constant(B='Bs', V='K*0'))
+i.set_description(r"Effective constant shift in $C_9(\mu_b)$ with CKM structure "
+                  r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$.")

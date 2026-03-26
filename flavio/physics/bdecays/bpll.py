@@ -219,6 +219,7 @@ _observables = {
 _hadr = {
 'B0->K': {'tex': r"B^0\to K^0", 'B': 'B0', 'P': 'K0', },
 'B+->K': {'tex': r"B^\pm\to K^\pm ", 'B': 'B+', 'P': 'K+', },
+'Bs->K': {'tex': r"B_s\to K^0", 'B': 'Bs', 'P': 'K0', },
 'B0->pi': {'tex': r"\bar B^0\to \pi^0", 'B': 'B0', 'P': 'pi0', },
 'B+->pi': {'tex': r"B^\pm\to \pi^\pm ", 'B': 'B+', 'P': 'pi+', },
 }

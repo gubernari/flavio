@@ -78,8 +78,8 @@ def helicity_amps_deltaC9_constant(q2, par, B, P):
 
 
 def helicity_amps_deltaC9_hk_polynomial(q2, par, B, P):
-    r"""Subleading hadronic correction for $B\to\pi\ell^+\ell^-$ with explicit
-    CKM structure:
+    r"""Subleading hadronic correction for $b\to d$ pseudoscalar modes with
+    explicit CKM structure:
     $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$."""
     eps_u = _eps_u_over_t(par, B, P)
     deltaC9_H = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9')
@@ -183,8 +183,8 @@ for had in [('B0','K0'), ('B+','K+'), ]:
         i.set_description(r"Effective constant shift in the Wilson coefficient $C_9(\mu_b)$.")
 
 
-# AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in B->pill
-for had in [('B0', 'pi0'), ('B+', 'pi+')]:
+# AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in b->d B->Pll
+for had in [('B0', 'pi0'), ('B+', 'pi+'), ('Bs', 'K0')]:
     process = had[0] + '->' + had[1] + 'll'
 
     quantity = process + ' subleading effects at low q2'

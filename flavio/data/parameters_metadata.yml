@@ -548,6 +548,117 @@ Bs->phi deltaC9 c_- Im:
   description: Parameter for subleading hadronic effects in $B_s\to \phi\ell^+\ell^-$ at high $q^2$
 
 
+# Parameters for CKM-resolved subleading hadronic effects in Bs->K*0ll
+Bs->K*0 deltaC7 a_0 Re:
+  tex: $\text{Re}\,a^{\Delta_7,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 a_0 Im:
+  tex: $\text{Im}\,a^{\Delta_7,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 b_0 Re:
+  tex: $\text{Re}\,b^{\Delta_7,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 b_0 Im:
+  tex: $\text{Im}\,b^{\Delta_7,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7p a_+ Re:
+  tex: $\text{Re}\,a^{\Delta_7^\prime,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7p a_+ Im:
+  tex: $\text{Im}\,a^{\Delta_7^\prime,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7p b_+ Re:
+  tex: $\text{Re}\,b^{\Delta_7^\prime,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7p b_+ Im:
+  tex: $\text{Im}\,b^{\Delta_7^\prime,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 a_- Re:
+  tex: $\text{Re}\,a^{\Delta_7,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 a_- Im:
+  tex: $\text{Im}\,a^{\Delta_7,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 b_- Re:
+  tex: $\text{Re}\,b^{\Delta_7,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7 b_- Im:
+  tex: $\text{Im}\,b^{\Delta_7,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K a_0 Re:
+  tex: $\text{Re}\,a^{\Delta_7,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K a_0 Im:
+  tex: $\text{Im}\,a^{\Delta_7,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K b_0 Re:
+  tex: $\text{Re}\,b^{\Delta_7,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K b_0 Im:
+  tex: $\text{Im}\,b^{\Delta_7,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7pK a_+ Re:
+  tex: $\text{Re}\,a^{\Delta_7^\prime,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7pK a_+ Im:
+  tex: $\text{Im}\,a^{\Delta_7^\prime,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7pK b_+ Re:
+  tex: $\text{Re}\,b^{\Delta_7^\prime,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7pK b_+ Im:
+  tex: $\text{Im}\,b^{\Delta_7^\prime,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K a_- Re:
+  tex: $\text{Re}\,a^{\Delta_7,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K a_- Im:
+  tex: $\text{Im}\,a^{\Delta_7,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K b_- Re:
+  tex: $\text{Re}\,b^{\Delta_7,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC7K b_- Im:
+  tex: $\text{Im}\,b^{\Delta_7,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at low $q^2$
+Bs->K*0 deltaC9 c_0 Re:
+  tex: $\text{Re}\,c^{\Delta_9,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9 c_0 Im:
+  tex: $\text{Im}\,c^{\Delta_9,H}_0$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9 c_+ Re:
+  tex: $\text{Re}\,c^{\Delta_9,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9 c_+ Im:
+  tex: $\text{Im}\,c^{\Delta_9,H}_+$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9 c_- Re:
+  tex: $\text{Re}\,c^{\Delta_9,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9 c_- Im:
+  tex: $\text{Im}\,c^{\Delta_9,H}_-$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_0 Re:
+  tex: $\text{Re}\,c^{\Delta_9,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_0 Im:
+  tex: $\text{Im}\,c^{\Delta_9,K}_0$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_+ Re:
+  tex: $\text{Re}\,c^{\Delta_9,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_+ Im:
+  tex: $\text{Im}\,c^{\Delta_9,K}_+$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_- Re:
+  tex: $\text{Re}\,c^{\Delta_9,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+Bs->K*0 deltaC9K c_- Im:
+  tex: $\text{Im}\,c^{\Delta_9,K}_-$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^{*0}\ell^+\ell^-$ at high $q^2$
+
+
 # Parameters for subleading hadronic effects in B->Pll
 B0->K0 deltaC9 a Re:
   tex: $\text{Re}\,a^{\Delta_9}$
@@ -585,6 +696,44 @@ B+->K+ deltaC9 b Im:
 B+->K+ deltaC9 c Im:
   tex: $\text{Im}\,c^{\Delta_9}$
   description: Parameter for subleading hadronic effects in $B^+\to K^+\ell^+\ell^-$ at low $q^2$
+
+# Parameters for CKM-resolved subleading hadronic effects in Bs->Kll
+Bs->K0 deltaC9 a Re:
+  tex: $\text{Re}\,a^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9 b Re:
+  tex: $\text{Re}\,b^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9 c Re:
+  tex: $\text{Re}\,c^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at high $q^2$
+Bs->K0 deltaC9 a Im:
+  tex: $\text{Im}\,a^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9 b Im:
+  tex: $\text{Im}\,b^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9 c Im:
+  tex: $\text{Im}\,c^{\Delta_9,H}$
+  description: Parameter for CKM-leading subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at high $q^2$
+Bs->K0 deltaC9K a Re:
+  tex: $\text{Re}\,a^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9K b Re:
+  tex: $\text{Re}\,b^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9K c Re:
+  tex: $\text{Re}\,c^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at high $q^2$
+Bs->K0 deltaC9K a Im:
+  tex: $\text{Im}\,a^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9K b Im:
+  tex: $\text{Im}\,b^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at low $q^2$
+Bs->K0 deltaC9K c Im:
+  tex: $\text{Im}\,c^{\Delta_9,K}$
+  description: Parameter for CKM-suppressed K-term subleading hadronic effects in $B_s\to K^0\ell^+\ell^-$ at high $q^2$
 
 # Parameters for CKM-resolved subleading hadronic effects in B->pill
 B0->pi0 deltaC9 a Re:

@@ -141,6 +141,24 @@ class TestBVll(unittest.TestCase):
         flavio.sm_prediction("S4(Bs->phimumu)", q2=1)
         flavio.sm_prediction("S7(Bs->phimumu)", q2=1)
 
+    def test_bskstarll_subleading_ckm_hk(self):
+        wc_obj = flavio.WilsonCoefficients()
+        flavio.sm_prediction("dBR/dq2(Bs->K*0mumu)", q2=5)
+        flavio.sm_prediction("dBR/dq2(Bs->K*0mumu)", q2=15)
+        par0 = flavio.default_parameters.get_central_all()
+        h0_low = flavio.physics.bdecays.bvll.amplitudes.get_subleading(5, wc_obj, par0, 'Bs', 'K*0', False)
+        self.assertEqual(h0_low['0', 'V'], 0)
+        park_low = par0.copy()
+        park_low['Bs->K*0 deltaC7K a_0 Re'] = 1.0
+        hk_low = flavio.physics.bdecays.bvll.amplitudes.get_subleading(5, wc_obj, park_low, 'Bs', 'K*0', False)
+        self.assertNotEqual(hk_low['0', 'V'], h0_low['0', 'V'])
+        h0_high = flavio.physics.bdecays.bvll.amplitudes.get_subleading(15, wc_obj, par0, 'Bs', 'K*0', False)
+        self.assertEqual(h0_high['0', 'V'], 0)
+        park_high = par0.copy()
+        park_high['Bs->K*0 deltaC9K c_0 Re'] = 1.0
+        hk_high = flavio.physics.bdecays.bvll.amplitudes.get_subleading(15, wc_obj, park_high, 'Bs', 'K*0', False)
+        self.assertNotEqual(hk_high['0', 'V'], h0_high['0', 'V'])
+
     def test_bvll_integrate_pole(self):
         def f(q2):
             # dummy function with a pole at q2=0

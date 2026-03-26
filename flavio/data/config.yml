@@ -136,15 +136,19 @@ implementation:
   B0->K*0ll subleading effects at low q2: B0->K*0ll deltaC7, 7p polynomial
   B+->K*+ll subleading effects at low q2: B+->K*+ll deltaC7, 7p polynomial
   Bs->phill subleading effects at low q2: Bs->phill deltaC7, 7p polynomial
+  Bs->K*0ll subleading effects at low q2: Bs->K*0ll deltaC7, 7p H+K polynomial
   B0->K*0ll subleading effects at high q2: B0->K*0ll deltaC9 shift
   B+->K*+ll subleading effects at high q2: B+->K*+ll deltaC9 shift
   Bs->phill subleading effects at high q2: Bs->phill deltaC9 shift
+  Bs->K*0ll subleading effects at high q2: Bs->K*0ll deltaC9 H+K shift
 
   # B->Pll subleading hadronic effects
   B0->K0ll subleading effects at low q2: B0->K0ll deltaC9 polynomial
   B+->K+ll subleading effects at low q2: B+->K+ll deltaC9 polynomial
   B0->K0ll subleading effects at high q2: B0->K0ll deltaC9 shift
   B+->K+ll subleading effects at high q2: B+->K+ll deltaC9 shift
+  Bs->K0ll subleading effects at low q2: Bs->K0ll deltaC9 H+K polynomial
+  Bs->K0ll subleading effects at high q2: Bs->K0ll deltaC9 H+K shift
   B0->pi0ll subleading effects at low q2: B0->pi0ll deltaC9 H+K polynomial
   B+->pi+ll subleading effects at low q2: B+->pi+ll deltaC9 H+K polynomial
   B0->pi0ll subleading effects at high q2: B0->pi0ll deltaC9 H+K shift

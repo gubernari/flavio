@@ -57,6 +57,16 @@ class TestBPll(unittest.TestCase):
         hk = get_subleading(5, wc_obj, park, 'B0', 'pi0', 'mu', False)
         self.assertNotEqual(hk['V'], h0['V'])
 
+    def test_bskll_subleading_ckm_hk(self):
+        flavio.sm_prediction('dBR/dq2(Bs->Kmumu)', q2=5)
+        par0 = par.copy()
+        h0 = get_subleading(5, wc_obj, par0, 'Bs', 'K0', 'mu', False)
+        self.assertEqual(h0['V'], 0)
+        park = par.copy()
+        park['Bs->K0 deltaC9K a Re'] = 1.0
+        hk = get_subleading(5, wc_obj, park, 'Bs', 'K0', 'mu', False)
+        self.assertNotEqual(hk['V'], h0['V'])
+
     def test_bktautau(self):
         brbin = flavio.sm_prediction('<dBR/dq2>(B+->Ktautau)', 12, 24)
         brtot = flavio.sm_prediction('BR(B+->Ktautau)')
