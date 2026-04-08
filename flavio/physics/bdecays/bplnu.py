@@ -156,6 +156,7 @@ _args = {'dBR/dq2': ['q2'], 'BR': None, '<BR>': ['q2min', 'q2max']}
 _hadr = {
 'B+->D': {'tex': r"B^+\to D^0", 'B': 'B+', 'P': 'D0', },
 'B0->D': {'tex': r"B^0\to D^- ", 'B': 'B0', 'P': 'D+', },
+'Bs->K': {'tex': r"B_s\to K^- ", 'B': 'Bs', 'P': 'K+', },
 'B+->pi': {'tex': r"B^+\to \pi^0", 'B': 'B+', 'P': 'pi0', },
 'B0->pi': {'tex': r"B^0\to \pi^- ", 'B': 'B0', 'P': 'pi+', },
 }
@@ -163,6 +164,7 @@ _hadr = {
 # for LF ratios we don't distinguish B+ and B0 (but take B0 because we have to choose sth)
 _hadr_l = {
 'B->D': {'tex': r"B\to D", 'B': 'B0', 'P': 'D+', 'decays': ['B+->D', 'B0->D'],},
+'Bs->K': {'tex': r"B_s\to K^- ", 'B': 'Bs', 'P': 'K+', 'decays': ['Bs->K'],},
 'B->pi': {'tex': r"B\to \pi ", 'B': 'B0', 'P': 'pi+', 'decays': ['B+->pi', 'B0->pi'],},
 }
 

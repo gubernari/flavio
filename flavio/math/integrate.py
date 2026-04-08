@@ -1,6 +1,8 @@
 import scipy
 import numpy as np
 
+_np_trapezoid = np.trapezoid if hasattr(np, 'trapezoid') else np.trapz
+
 def nintegrate(f, a, b, epsrel=0.005, **kwargs):
     return scipy.integrate.quad(f, a, b, epsabs=0, epsrel=epsrel, **kwargs)[0]
 
@@ -10,7 +12,7 @@ def nintegrate_fast(f, a, b, N=5, **kwargs):
     f_interp = scipy.interpolate.interp1d(x, y, kind='cubic')
     x_fine = np.linspace(a,b,N*4)
     y_interp = np.array([f_interp(X) for X in x_fine])
-    return np.trapz(y_interp, x=x_fine)
+    return _np_trapezoid(y_interp, x=x_fine)
 
 def nintegrate_complex(func, a, b, epsrel=0.005, **kwargs):
     def real_func(x):

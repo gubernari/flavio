@@ -1,4 +1,4 @@
-from flavio.physics.bdecays.formfactors.b_p import bcl, cln, bsz, bcl_lmvd
+from flavio.physics.bdecays.formfactors.b_p import bcl, cln, bsz, bcl_lmvd, bsk_flag
 from flavio.classes import AuxiliaryQuantity, Implementation
 from flavio.config import config
 
@@ -74,3 +74,23 @@ for p in processes_H2H:
                    function=ff_function(cln.ff, p,
                    scale=config['renormalization scale']['bpll']))
     i.set_description("CLN parametrization based on HQET")
+
+quantity = 'Bs->K form factor'
+a = AuxiliaryQuantity(name=quantity, arguments=['q2'])
+a.set_description('Hadronic form factor for the Bs->K transition')
+
+iname = 'Bs->K BCL4-Flag2024-IW'
+i = Implementation(
+    name=iname,
+    quantity=quantity,
+    function=ff_function(
+        bsk_flag.ff_isgurwise,
+        'Bs->K',
+        scale=config['renormalization scale']['bpll'],
+    ),
+)
+i.set_description(
+    "4-parameter BCL parametrization for Bs->K using FLAG 2024 coefficients"
+    " and the dedicated z definition of arXiv:2411.04268, with fT obtained"
+    " from the improved Isgur-Wise relation."
+)

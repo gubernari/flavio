@@ -42,3 +42,12 @@ class TestBVll(unittest.TestCase):
         self.assertAlmostEqual(br_tau/br_sm, 4, delta=0.04)
         # without interference: 1 + 1 = 2
         self.assertAlmostEqual(br_e/br_sm, 2, delta=0.02)
+
+    def test_bsklnu(self):
+        constraints = flavio.default_parameters
+        wc_sm = flavio.WilsonCoefficients()
+        obs = flavio.Observable["dBR/dq2(Bs->Kenu)"]
+        dbrdq2 = obs.prediction_central(constraints, wc_sm, q2=5)
+        self.assertGreater(dbrdq2, 0)
+        r_mue = flavio.Observable["Rmue(Bs->Klnu)"].prediction_central(constraints, wc_sm)
+        self.assertAlmostEqual(r_mue, 1, delta=0.01)

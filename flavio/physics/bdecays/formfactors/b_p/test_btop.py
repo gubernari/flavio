@@ -42,6 +42,17 @@ class TestBtoP(unittest.TestCase):
         self.assertAlmostEqual(ff_latt['f0'], 0.71, places=1)
         self.assertAlmostEqual(ff_latt['fT'], 1.74, places=1)
 
+    def test_bsk_flag(self):
+        c = copy.deepcopy(default_parameters)
+        ff_q20 = Implementation['Bs->K BCL4-Flag2024-IW'].get_central(constraints_obj=c, wc_obj=None, q2=0)
+        self.assertAlmostEqual(ff_q20['f+'], 0.27394072496698013, places=10)
+        self.assertAlmostEqual(ff_q20['f0'], 0.27394072496698013, places=10)
+        self.assertAlmostEqual(ff_q20['fT'], 0.27394072496698013, places=10)
+        ff_q210 = Implementation['Bs->K BCL4-Flag2024-IW'].get_central(constraints_obj=c, wc_obj=None, q2=10)
+        self.assertAlmostEqual(ff_q210['f+'], 0.47614412515063137, places=10)
+        self.assertAlmostEqual(ff_q210['f0'], 0.36305725851023635, places=10)
+        self.assertAlmostEqual(ff_q210['fT'], 0.47614412515063137, places=10)
+
     def test_bsz(self):
         bsz_parameters.load_parameters('data/arXiv-1811-00983v1/BD_LCSR.json', 'B->D', c)
         ff_latt = Implementation['B->D BSZ3'].get_central(constraints_obj=c, wc_obj=None, q2=0)

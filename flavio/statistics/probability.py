@@ -13,6 +13,8 @@ from collections import OrderedDict
 import yaml
 import re
 
+_np_trapezoid = np.trapezoid if hasattr(np, 'trapezoid') else np.trapz
+
 
 def _camel_to_underscore(s):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', s)
@@ -885,7 +887,7 @@ class NumericalDistribution(ProbabilityDistribution):
         else:
             mode = x[np.argmax(y)]
             super().__init__(central_value=mode, support=(x[0], x[-1]))
-        self.y_norm = y /  np.trapz(y, x=x)  # normalize PDF to 1
+        self.y_norm = y / _np_trapezoid(y, x=x)  # normalize PDF to 1
         self.y_norm[self.y_norm < 0] = 0
         self.pdf_interp = interp1d(x, self.y_norm,
                                         fill_value=0, bounds_error=False)
