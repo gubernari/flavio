@@ -62,19 +62,29 @@ class HelicityAmpsDeltaC(object):
 
 class HelicityAmpsDeltaC_77p_polynomial(HelicityAmpsDeltaC):
     r"""Helicity amps from an effective shift in the Wilson coefficients
-    $C_7$ (for the 0 and $-$ amplitudes) and $C_7'$ (for the $+$) amplitude
-    as a polynomial in $q^2$."""
+    $C_7$ (for the 0 and $-$ amplitudes), $C_7'$ (for the $+$ amplitude),
+    and optional low-$q^2$ shifts in $C_9$ for all helicities, all taken as
+    first-order polynomials in $q^2$.
+
+    The extra $C_9$ pieces default to zero through the parameter tables, so
+    the existing predictions are unchanged unless these parameters are set
+    explicitly."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def __call__(self):
         ha = {}
-        deltaC7_0 = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '0')
-        deltaC7p_pl = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7p', '+')
-        deltaC7_mi = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, 'deltaC7', '-')
-        ha['0', 'V'] = self.ha_deltaC(deltaC7_0, '7')['0', 'V']
-        ha['pl', 'V'] = self.ha_deltaC(deltaC7p_pl, '7p')['pl', 'V']
-        ha['mi', 'V'] = self.ha_deltaC(deltaC7_mi, '7')['mi', 'V']
+        contributions = {
+            ('0', 'V'): [('deltaC7', '0', '7'), ('deltaC9', '0', 'v')],
+            ('pl', 'V'): [('deltaC7p', '+', '7p'), ('deltaC9', '+', 'v')],
+            ('mi', 'V'): [('deltaC7', '-', '7'), ('deltaC9', '-', 'v')],
+        }
+        for amp_key, amp_contributions in contributions.items():
+            total = 0
+            for pname, h, wc_name in amp_contributions:
+                deltaC = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, pname, h)
+                total += self.ha_deltaC(deltaC, wc_name)[amp_key]
+            ha[amp_key] = total
         return ha
 
 
@@ -199,7 +209,12 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
     i.set_description(r"Effective shift in the Wilson coefficient $C_7(\mu_b)$"
                       r" (in the $0$ and $-$ helicity amplitudes) and"
                       r" $C_7'(\mu_b)$ (in the $+$ helicity amplitude)"
-                      r" as a first-order polynomial in $q^2$.")
+                      r" as a first-order polynomial in $q^2$, optionally"
+                      r" supplemented by first-order polynomial shifts in"
+                      r" $C_9(\mu_b)$ for the $0$, $+$, and $-$ helicity"
+                      r" amplitudes. The added $C_9$ parameters default to"
+                      r" zero, so the previous predictions are recovered"
+                      r" automatically.")
 
 
 # AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in Bs->K*0ll at LOW q^2

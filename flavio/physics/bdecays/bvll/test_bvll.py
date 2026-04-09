@@ -159,6 +159,36 @@ class TestBVll(unittest.TestCase):
         hk_high = flavio.physics.bdecays.bvll.amplitudes.get_subleading(15, wc_obj, park_high, 'Bs', 'K*0', False)
         self.assertNotEqual(hk_high['0', 'V'], h0_high['0', 'V'])
 
+    def test_bvll_lowq2_deltaC9_polynomial(self):
+        wc_obj = flavio.WilsonCoefficients()
+        par0 = flavio.default_parameters.get_central_all()
+
+        # The newly wired low-q^2 deltaC9 parameters are exact-zero by default,
+        # so the historical predictions stay unchanged unless they are set.
+        self.assertEqual(par0['B0->K*0 deltaC9 a_+ Re'], 0)
+        self.assertEqual(par0['B+->K*+ deltaC9 b_- Im'], 0)
+        self.assertEqual(par0['Bs->phi deltaC9 a_0 Re'], 0)
+
+        h0 = flavio.physics.bdecays.bvll.amplitudes.get_subleading(5, wc_obj, par0, 'B0', 'K*0', False)
+        self.assertEqual(h0['0', 'V'], 0)
+        self.assertEqual(h0['pl', 'V'], 0)
+        self.assertEqual(h0['mi', 'V'], 0)
+
+        for pname, amp_key in [
+                ('B0->K*0 deltaC9 a_0 Re', ('0', 'V')),
+                ('B0->K*0 deltaC9 a_+ Re', ('pl', 'V')),
+                ('B0->K*0 deltaC9 a_- Re', ('mi', 'V')),
+            ]:
+            park = par0.copy()
+            park[pname] = 1.0
+            hk = flavio.physics.bdecays.bvll.amplitudes.get_subleading(5, wc_obj, park, 'B0', 'K*0', False)
+            self.assertNotEqual(hk[amp_key], h0[amp_key])
+
+        park_b = par0.copy()
+        park_b['B0->K*0 deltaC9 b_+ Re'] = 1.0
+        hk_b = flavio.physics.bdecays.bvll.amplitudes.get_subleading(5, wc_obj, park_b, 'B0', 'K*0', False)
+        self.assertNotEqual(hk_b['pl', 'V'], h0['pl', 'V'])
+
     def test_bvll_integrate_pole(self):
         def f(q2):
             # dummy function with a pole at q2=0
