@@ -4811,6 +4811,49 @@ LHCb Bs->phimumu 2021 15.0-18.9 GeV^2:
                 [1.00, -0.04],
                 [1.00]]
 
+# arXiv:2504.06346, Bs0->phi e+e- angular analysis (9 fb-1).
+# The paper measures FL, A6', S3 and A9; only FL and S3 are implemented
+# in flavio. No correlation matrix is provided in the paper (treated as
+# uncorrelated). Uncertainties are stat (asymmetric) then total syst.
+LHCb Bs->phiee 2025 0.1-1.1 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 0.1
+      q2max: 1.1
+      value: 0.25 +0.12 -0.12 +0.06 -0.06
+    - name: <S3>(Bs->phiee)
+      q2min: 0.1
+      q2max: 1.1
+      value: 0.23 +0.24 -0.24 +0.07 -0.07
+
+LHCb Bs->phiee 2025 1.1-6.0 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.67 +0.12 -0.13 +0.06 -0.06
+    - name: <S3>(Bs->phiee)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.07 +0.21 -0.21 +0.07 -0.07
+
+LHCb Bs->phiee 2025 15.0-19.0 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 15.0
+      q2max: 19.0
+      value: 0.43 +0.11 -0.10 +0.05 -0.05
+    - name: <S3>(Bs->phiee)
+      q2min: 15.0
+      q2max: 19.0
+      value: -0.01 +0.29 -0.28 +0.08 -0.08
+
 
 LHCb B->K*ee 2020:
   experiment: LHCb
