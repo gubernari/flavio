@@ -1066,6 +1066,285 @@ LHCb B->K*mumu 2020 P 15-19:
                 [1.00]]
 
 
+# arXiv:2512.18053 (LHCb-PAPER-2025-041, 8.4 fb-1). HEPData ins3094698.
+# Fit configuration (ii): partially-massive model, Pi' basis, standard q2
+# binning. Bias-corrected central values (val) with post-Neyman asymmetric
+# stat and total syst. FL is taken as -S2c (paper: "in the massless-lepton
+# approximation -S2c is equivalent to FL"); its uncertainties and the
+# corresponding correlation row/column carry the sign flip. Per-bin intra-
+# correlation submatrices from config_2 total correlation. HEPData units
+# are 0.1. Bin selection mirrors the LHCb B->K*mumu 2020 P entries.
+LHCb B->K*mumu 2026 P 0.06-0.98:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: 0.291 +0.089 -0.086 +0.013 -0.013
+    - name: <P1>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: -0.005 +0.078 -0.078 +0.012 -0.012
+    - name: <P2>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: -0.045 +0.032 -0.033 +0.010 -0.010
+    - name: <P3>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: 0.058 +0.044 -0.042 +0.005 -0.006
+    - name: <P4p>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: 0.170 +0.098 -0.087 +0.022 -0.018
+    - name: <P5p>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: 0.452 +0.147 -0.119 +0.049 -0.039
+    - name: <P6p>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: -0.014 +0.069 -0.070 +0.009 -0.008
+    - name: <P8p>(B0->K*mumu)
+      q2min: 0.06
+      q2max: 0.98
+      value: -0.082 +0.086 -0.091 +0.008 -0.008
+  correlation: [[1.00, -0.02, 0.35, -0.15, -0.56, -0.62, -0.07, 0.14],
+                [1.00, -0.01, 0.03, 0.06, 0.10, -0.05, 0.00],
+                [1.00, -0.11, -0.21, -0.34, -0.07, 0.04],
+                [1.00, 0.18, 0.25, -0.02, -0.07],
+                [1.00, 0.54, 0.04, -0.14],
+                [1.00, 0.08, -0.15],
+                [1.00, -0.04],
+                [1.00]]
+
+LHCb B->K*mumu 2026 P 1.1-2.5:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: 0.743 +0.082 -0.086 +0.036 -0.035
+    - name: <P1>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: -0.266 +0.203 -0.202 +0.043 -0.044
+    - name: <P2>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: -0.348 +0.054 -0.054 +0.027 -0.026
+    - name: <P3>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: 0.081 +0.081 -0.081 +0.007 -0.007
+    - name: <P4p>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: -0.005 +0.081 -0.081 +0.014 -0.014
+    - name: <P5p>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: 0.441 +0.074 -0.074 +0.007 -0.007
+    - name: <P6p>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: -0.212 +0.078 -0.078 +0.005 -0.005
+    - name: <P8p>(B0->K*mumu)
+      q2min: 1.1
+      q2max: 2.5
+      value: -0.083 +0.086 -0.086 +0.006 -0.006
+  correlation: [[1.00, -0.03, -0.14, -0.03, -0.02, -0.10, -0.11, 0.24],
+                [1.00, -0.04, 0.05, -0.02, 0.08, 0.09, 0.01],
+                [1.00, 0.19, 0.08, -0.01, -0.02, 0.02],
+                [1.00, -0.03, -0.01, -0.20, -0.04],
+                [1.00, -0.16, 0.01, -0.09],
+                [1.00, 0.02, -0.06],
+                [1.00, -0.19],
+                [1.00]]
+
+LHCb B->K*mumu 2026 P 2.5-4.0:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: 0.864 +0.071 -0.080 +0.033 -0.032
+    - name: <P1>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: 0.473 +0.252 -0.252 +0.031 -0.031
+    - name: <P2>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: -0.307 +0.076 -0.077 +0.020 -0.026
+    - name: <P3>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: 0.027 +0.153 -0.158 +0.039 -0.050
+    - name: <P4p>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: -0.432 +0.122 -0.117 +0.019 -0.018
+    - name: <P5p>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: -0.209 +0.091 -0.091 +0.016 -0.016
+    - name: <P6p>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: -0.232 +0.095 -0.095 +0.006 -0.006
+    - name: <P8p>(B0->K*mumu)
+      q2min: 2.5
+      q2max: 4.0
+      value: 0.026 +0.102 -0.102 +0.004 -0.004
+  correlation: [[1.00, 0.04, -0.08, -0.04, -0.02, -0.03, -0.02, -0.15],
+                [1.00, 0.17, -0.07, -0.12, -0.09, 0.06, 0.04],
+                [1.00, 0.14, -0.02, -0.07, 0.00, -0.11],
+                [1.00, 0.06, 0.07, -0.07, 0.05],
+                [1.00, -0.14, -0.11, 0.01],
+                [1.00, 0.04, -0.09],
+                [1.00, -0.14],
+                [1.00]]
+
+LHCb B->K*mumu 2026 P 4.0-6.0:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: 0.627 +0.053 -0.055 +0.011 -0.010
+    - name: <P1>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: -0.173 +0.149 -0.149 +0.013 -0.013
+    - name: <P2>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: 0.073 +0.041 -0.041 +0.008 -0.008
+    - name: <P3>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: 0.125 +0.085 -0.089 +0.008 -0.014
+    - name: <P4p>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: -0.449 +0.080 -0.080 +0.007 -0.007
+    - name: <P5p>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: -0.479 +0.073 -0.073 +0.007 -0.007
+    - name: <P6p>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: -0.198 +0.075 -0.075 +0.005 -0.005
+    - name: <P8p>(B0->K*mumu)
+      q2min: 4.0
+      q2max: 6.0
+      value: -0.028 +0.078 -0.078 +0.001 -0.001
+  correlation: [[1.00, -0.03, -0.05, 0.01, 0.35, 0.27, 0.10, -0.01],
+                [1.00, 0.03, 0.08, -0.04, -0.14, 0.04, 0.00],
+                [1.00, 0.03, -0.14, -0.11, -0.01, -0.06],
+                [1.00, 0.00, 0.11, 0.13, 0.07],
+                [1.00, 0.10, 0.03, -0.00],
+                [1.00, 0.03, -0.00],
+                [1.00, 0.04],
+                [1.00]]
+
+LHCb B->K*mumu 2026 P 15.0-17.0:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: 0.278 +0.032 -0.033 +0.005 -0.006
+    - name: <P1>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.469 +0.055 -0.055 +0.006 -0.006
+    - name: <P2>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: 0.402 +0.013 -0.013 +0.002 -0.002
+    - name: <P3>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.070 +0.033 -0.033 +0.001 -0.001
+    - name: <P4p>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.662 +0.061 -0.061 +0.005 -0.005
+    - name: <P5p>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.642 +0.055 -0.055 +0.006 -0.006
+    - name: <P6p>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.061 +0.056 -0.056 +0.004 -0.004
+    - name: <P8p>(B0->K*mumu)
+      q2min: 15.0
+      q2max: 17.0
+      value: -0.034 +0.058 -0.058 +0.002 -0.002
+  correlation: [[1.00, -0.05, -0.14, 0.01, 0.68, 0.57, 0.04, 0.05],
+                [1.00, 0.23, 0.00, -0.18, -0.12, -0.00, -0.01],
+                [1.00, -0.04, -0.15, -0.32, -0.02, -0.04],
+                [1.00, 0.01, 0.04, 0.14, 0.08],
+                [1.00, 0.49, -0.01, 0.05],
+                [1.00, 0.02, -0.01],
+                [1.00, 0.30],
+                [1.00]]
+
+LHCb B->K*mumu 2026 P 17.0-19.0:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2512.18053
+  values:
+    - name: <FL>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: 0.280 +0.045 -0.045 +0.008 -0.008
+    - name: <P1>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: -0.732 +0.088 -0.088 +0.010 -0.010
+    - name: <P2>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: 0.322 +0.022 -0.022 +0.003 -0.003
+    - name: <P3>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: -0.027 +0.042 -0.042 +0.003 -0.003
+    - name: <P4p>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: -0.671 +0.084 -0.066 +0.015 -0.075
+    - name: <P5p>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: -0.557 +0.066 -0.075 +0.011 -0.022
+    - name: <P6p>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: 0.090 +0.077 -0.077 +0.005 -0.005
+    - name: <P8p>(B0->K*mumu)
+      q2min: 17.0
+      q2max: 19.0
+      value: -0.024 +0.080 -0.080 +0.005 -0.005
+  correlation: [[1.00, -0.08, -0.12, -0.00, 0.64, 0.60, -0.06, 0.04],
+                [1.00, 0.00, -0.07, -0.13, -0.11, 0.01, 0.00],
+                [1.00, 0.02, -0.13, -0.23, 0.03, -0.03],
+                [1.00, 0.02, -0.04, 0.09, 0.12],
+                [1.00, 0.55, -0.03, 0.07],
+                [1.00, -0.01, 0.05],
+                [1.00, 0.22],
+                [1.00]]
+
+
 LHCb B+->K*mumu 2020 S 0.1-0.98:
   experiment: LHCb (9 fb-1)
   inspire: LHCb:2020gog
@@ -4810,6 +5089,49 @@ LHCb Bs->phimumu 2021 15.0-18.9 GeV^2:
                 [1.00, -0.06, -0.08],
                 [1.00, -0.04],
                 [1.00]]
+
+# arXiv:2504.06346, Bs0->phi e+e- angular analysis (9 fb-1).
+# The paper measures FL, A6', S3 and A9; only FL and S3 are implemented
+# in flavio. No correlation matrix is provided in the paper (treated as
+# uncorrelated). Uncertainties are stat (asymmetric) then total syst.
+LHCb Bs->phiee 2025 0.1-1.1 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 0.1
+      q2max: 1.1
+      value: 0.25 +0.12 -0.12 +0.06 -0.06
+    - name: <S3>(Bs->phiee)
+      q2min: 0.1
+      q2max: 1.1
+      value: 0.23 +0.24 -0.24 +0.07 -0.07
+
+LHCb Bs->phiee 2025 1.1-6.0 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.67 +0.12 -0.13 +0.06 -0.06
+    - name: <S3>(Bs->phiee)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.07 +0.21 -0.21 +0.07 -0.07
+
+LHCb Bs->phiee 2025 15.0-19.0 GeV^2:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2504.06346
+  values:
+    - name: <FL>(Bs->phiee)
+      q2min: 15.0
+      q2max: 19.0
+      value: 0.43 +0.11 -0.10 +0.05 -0.05
+    - name: <S3>(Bs->phiee)
+      q2min: 15.0
+      q2max: 19.0
+      value: -0.01 +0.29 -0.28 +0.08 -0.08
 
 
 LHCb B->K*ee 2020:
@@ -12144,6 +12466,15 @@ LHCb RK high q2 2025:
       q2min: 14.3
       q2max: 23.0
       value: 1.08 +0.11 -0.09 +0.04 -0.04
+
+LHCb RKst high q2 2026:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2604.08631
+  values:
+    - name: <Rmue>(B0->K*ll)
+      q2min: 14
+      q2max: 22
+      value: 1.08 +0.14 -0.12 +0.07 -0.07
 
 LHCb Rphi 2024:
   experiment: LHCb
@@ -23162,6 +23493,27 @@ LHCb B->pimumu 2015:
       q2min: 15
       q2max: 22
       value: 0.47 +0.12-0.10 ± 0.01 1e-9
+
+LHCb B+->pimumu angular 2026:
+  experiment: LHCb
+  url: https://arxiv.org/abs/2604.21987
+  values:
+    - name: <FH>(B+->pimumu)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.91 +0.08 -0.31 +0.13 -0.13
+    - name: <AFB>(B+->pimumu)
+      q2min: 1.1
+      q2max: 6.0
+      value: 0.27 +0.15 -0.16 +0.04 -0.04
+    - name: <FH>(B+->pimumu)
+      q2min: 15.0
+      q2max: 22.0
+      value: 0.04 +0.16 -0.04 +0.04 -0.04
+    - name: <AFB>(B+->pimumu)
+      q2min: 15.0
+      q2max: 22.0
+      value: 0.02 +0.07 -0.04 +0.07 -0.07
 
 LHCb Bs->K*mumu 2018:
    experiment: LHCb
