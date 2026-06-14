@@ -25,6 +25,17 @@ def _deltaC_polynomial_par(q2, par, B, V, pname, h):
                     + par[process + ' ' + pname + ' b_' + h + ' Im'] * q2))
 
 
+def _deltaC9_expansion_par(q2, par, B, V, pname, h):
+    process = B + '->' + V
+    a1 = (par[process + ' ' + pname + ' a1_' + h + ' Re']
+          + 1j * par[process + ' ' + pname + ' a1_' + h + ' Im'])
+    a2 = (par[process + ' ' + pname + ' a2_' + h + ' Re']
+          + 1j * par[process + ' ' + pname + ' a2_' + h + ' Im'])
+    a3 = (par[process + ' ' + pname + ' a3_' + h + ' Re']
+          + 1j * par[process + ' ' + pname + ' a3_' + h + ' Im'])
+    return a1 / q2 + a2 + a3 * q2
+
+
 def _deltaC_constant_par(par, B, V, pname, h):
     process = B + '->' + V
     return par[process + ' ' + pname + ' c_' + h + ' Re'] + 1j * par[process + ' ' + pname + ' c_' + h + ' Im']
@@ -63,8 +74,9 @@ class HelicityAmpsDeltaC(object):
 class HelicityAmpsDeltaC_77p_polynomial(HelicityAmpsDeltaC):
     r"""Helicity amps from an effective shift in the Wilson coefficients
     $C_7$ (for the 0 and $-$ amplitudes), $C_7'$ (for the $+$ amplitude),
-    and optional low-$q^2$ shifts in $C_9$ for all helicities, all taken as
-    first-order polynomials in $q^2$.
+    and optional low-$q^2$ shifts in $C_9$ for all helicities. The $C_7^{(\prime)}$
+    shifts are first-order polynomials in $q^2$, while the $C_9$ shifts have the
+    form $a_1/q^2+a_2+a_3q^2$.
 
     The extra $C_9$ pieces default to zero through the parameter tables, so
     the existing predictions are unchanged unless these parameters are set
@@ -82,7 +94,12 @@ class HelicityAmpsDeltaC_77p_polynomial(HelicityAmpsDeltaC):
         for amp_key, amp_contributions in contributions.items():
             total = 0
             for pname, h, wc_name in amp_contributions:
-                deltaC = _deltaC_polynomial_par(self.q2, self.par, self.B, self.V, pname, h)
+                if pname == 'deltaC9':
+                    deltaC = _deltaC9_expansion_par(
+                        self.q2, self.par, self.B, self.V, pname, h)
+                else:
+                    deltaC = _deltaC_polynomial_par(
+                        self.q2, self.par, self.B, self.V, pname, h)
                 total += self.ha_deltaC(deltaC, wc_name)[amp_key]
             ha[amp_key] = total
         return ha
@@ -210,7 +227,7 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
                       r" (in the $0$ and $-$ helicity amplitudes) and"
                       r" $C_7'(\mu_b)$ (in the $+$ helicity amplitude)"
                       r" as a first-order polynomial in $q^2$, optionally"
-                      r" supplemented by first-order polynomial shifts in"
+                      r" supplemented by shifts $a_1/q^2+a_2+a_3q^2$ in"
                       r" $C_9(\mu_b)$ for the $0$, $+$, and $-$ helicity"
                       r" amplitudes. The added $C_9$ parameters default to"
                       r" zero, so the previous predictions are recovered"

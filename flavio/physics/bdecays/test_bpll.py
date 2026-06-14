@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 from .bpll import *
+from . import bpll_subleading
 from flavio.physics.eft import WilsonCoefficients
 from flavio.physics.bdecays.wilsoncoefficients import wctot_dict
 import copy
@@ -53,9 +54,22 @@ class TestBPll(unittest.TestCase):
         h0 = get_subleading(5, wc_obj, par0, 'B0', 'pi0', 'mu', False)
         self.assertEqual(h0['V'], 0)
         park = par.copy()
-        park['B0->pi0 deltaC9K a Re'] = 1.0
+        park['B0->pi0 deltaC9K a2 Re'] = 1.0
         hk = get_subleading(5, wc_obj, park, 'B0', 'pi0', 'mu', False)
         self.assertNotEqual(hk['V'], h0['V'])
+
+    def test_bpll_lowq2_deltaC9_expansion(self):
+        park = par.copy()
+        park['B0->K0 deltaC9 a1 Re'] = 2.0
+        park['B0->K0 deltaC9 a1 Im'] = -1.0
+        park['B0->K0 deltaC9 a2 Re'] = 3.0
+        park['B0->K0 deltaC9 a2 Im'] = 4.0
+        park['B0->K0 deltaC9 a3 Re'] = -0.5
+        park['B0->K0 deltaC9 a3 Im'] = 0.25
+        q2 = 2.0
+        expected = (2.0 - 1.0j) / q2 + (3.0 + 4.0j) + (-0.5 + 0.25j) * q2
+        result = bpll_subleading._deltaC9_polynomial_par(q2, park, 'B0', 'K0')
+        self.assertEqual(result, expected)
 
     def test_bskll_subleading_ckm_hk(self):
         flavio.sm_prediction('dBR/dq2(Bs->Kmumu)', q2=5)
@@ -63,7 +77,7 @@ class TestBPll(unittest.TestCase):
         h0 = get_subleading(5, wc_obj, par0, 'Bs', 'K0', 'mu', False)
         self.assertEqual(h0['V'], 0)
         park = par.copy()
-        park['Bs->K0 deltaC9K a Re'] = 1.0
+        park['Bs->K0 deltaC9K a2 Re'] = 1.0
         hk = get_subleading(5, wc_obj, park, 'Bs', 'K0', 'mu', False)
         self.assertNotEqual(hk['V'], h0['V'])
 

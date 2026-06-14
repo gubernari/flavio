@@ -47,8 +47,10 @@ def _eps_u_over_t(par, B, P):
 
 def _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9'):
     process = B + '->' + P
-    return (par[process + ' ' + pname + ' a Re'] + par[process + ' ' + pname + ' b Re'] * q2
-            + 1j * (par[process + ' ' + pname + ' a Im'] + par[process + ' ' + pname + ' b Im'] * q2))
+    a1 = par[process + ' ' + pname + ' a1 Re'] + 1j * par[process + ' ' + pname + ' a1 Im']
+    a2 = par[process + ' ' + pname + ' a2 Re'] + 1j * par[process + ' ' + pname + ' a2 Im']
+    a3 = par[process + ' ' + pname + ' a3 Re'] + 1j * par[process + ' ' + pname + ' a3 Im']
+    return a1 / q2 + a2 + a3 * q2
 
 
 def _deltaC9_constant_par(par, B, P, pname='deltaC9'):
@@ -56,17 +58,15 @@ def _deltaC9_constant_par(par, B, P, pname='deltaC9'):
     return par[process + ' ' + pname + ' c Re'] + 1j * par[process + ' ' + pname + ' c Im']
 
 
-# One possibility is to parametrize the effective shift in C7 or C9 as a simple
-# polynomial in q2.
+# One possibility is to parametrize the effective shift in C7 as a simple
+# polynomial in q2 and the shift in C9 as a three-term Laurent expansion.
 
 def helicity_amps_deltaC7_polynomial(q2, par, B, P):
     deltaC7   =( par[B+'->'+P+' deltaC7 a Re']  + par[B+'->'+P+' deltaC7 b Re'] *q2
              +1j*( par[B+'->'+P+' deltaC7 a Im']  + par[B+'->'+P+' deltaC7 b Im'] *q2 ))
     return helicity_amps_deltaC7(q2, deltaC7, par, B, P)
 
-# note that, when parametrizing the correction as a shift to C9 rather than C7,
-# the contribution to the transverse (+ and -) amplitudes has to start with
-# 1/q2, otherwise one effectively sets corrections to B->Pgamma to zero.
+# The pole term in the C9 shift captures the photon-pole-like contribution.
 def helicity_amps_deltaC9_polynomial(q2, par, B, P):
     deltaC9 = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9')
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
@@ -162,7 +162,7 @@ for had in [('B0','K0'), ('B+','K+'),]:
     i = Implementation(name=iname, quantity=quantity,
                    function=fct_deltaC9_polynomial(B=had[0], P=had[1]))
     i.set_description(r"Effective shift in the Wilson coefficient $C_9(\mu_b)$"
-                      r" as a first-order polynomial in $q^2$.")
+                      r" as $a_1/q^2+a_2+a_3q^2$.")
 
 
 # AuxiliaryQuantity & Implementatation: subleading effects at HIGH q^2
@@ -197,7 +197,7 @@ for had in [('B0', 'pi0'), ('B+', 'pi+'), ('Bs', 'K0')]:
                    function=fct_deltaC9_hk_polynomial(B=had[0], P=had[1]))
     i.set_description(r"Effective shift in $C_9(\mu_b)$ with CKM structure "
                       r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$"
-                      r" as a first-order polynomial in $q^2$.")
+                      r" and expansion $a_1/q^2+a_2+a_3q^2$.")
 
     quantity = process + ' subleading effects at high q2'
     a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
