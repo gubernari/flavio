@@ -23527,83 +23527,86 @@ LHCb B+->pimumu angular 2026:
 
 # arXiv:2606.23646 (LHCb-PAPER-2026-016, 9 fb-1). Supersedes LHCb B->pimumu
 # 2015. Bins 2-4, 4-6 and all bins above 15 GeV2.
-# Central values are the appendix Table 3 fit results. The uncertainties are
-# the TOTAL (stat (+) syst) errors, read off the vector coordinates of Fig. 2;
-# the same readout reproduces all nine appendix central values to <=0.005, and
-# the figure caption states the bars are the quadratic sum of stat and syst.
-# The per-bin systematic breakdown is not in the paper.
-# Correlations: only the within-bin stat correlations of appendix Table 3 are
-# published. Cross-bin entries are set to zero -- cross-bin STAT correlations
-# are zero by construction (disjoint q2 intervals => disjoint event samples),
-# and the cross-bin SYST covariance is HEPData-only (no record exists yet, the
-# paper is not through journal review). The paper bounds syst/stat at 0.30
-# (dBR/dq2) and 0.17 (ACP), so the neglected cross-bin correlation cannot
-# exceed 0.083 and 0.028 respectively. Revisit when HEPData appears.
-# The pi/K branching-fraction ratio is not a flavio observable and is omitted.
+# Central values and statistical uncertainties are taken from the HEPData
+# record https://www.hepdata.net/record/ins3170911 (v1), table "results",
+# which supersedes the earlier readout of the appendix table / Fig. 2.
+# Each entry is quoted as asymmetric stat (+) symmetric syst; flavio combines
+# them as sigma^2 = stat_plus*stat_minus + syst^2.
+# The correlation matrix is the total covariance
+#   C = D_stat . R_stat . D_stat + C_syst + C_syst(J/psi K+ normalisation)
+# rescaled by those sigmas, built from the three YAML resources attached to
+# the HEPData table (statistical correlation matrix; systematic covariance
+# without the J/psi K+ normalisation; J/psi K+ normalisation systematic
+# covariance). Cross-bin correlations are non-zero but small (<= 0.04),
+# since the systematic covariance is subdominant to the statistical one.
+# The pi/K branching-fraction ratio is not a flavio observable and the
+# 0.1-2, 6-8 and 11-12.5 GeV2 bins are not used; dropping rows/columns from
+# a Gaussian is exact marginalisation, so the sub-covariance is used as is.
 LHCb B+->pimumu 2026:
   experiment: LHCb
   url: https://arxiv.org/abs/2606.23646
+  hepdata: ins3170911
   values:
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 2.0
       q2max: 4.0
-      value: 1.34 +0.224 -0.208 1e-9
+      value: 1.3448 +0.2174 -0.2020 +- 0.0495 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 2.0
       q2max: 4.0
-      value: -0.27 +0.155 -0.153
+      value: -0.2698 +0.1549 -0.1517 +- 0.0155
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 4.0
       q2max: 6.0
-      value: 0.63 +0.150 -0.134 1e-9
+      value: 0.6288 +0.1450 -0.1309 +- 0.0333 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 4.0
       q2max: 6.0
-      value: 0.16 +0.221 -0.221
+      value: 0.1626 +0.2201 -0.2190 +- 0.0173
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 15.0
       q2max: 17.0
-      value: 0.90 +0.137 -0.128 1e-9
+      value: 0.8982 +0.1311 -0.1207 +- 0.0367 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 15.0
       q2max: 17.0
-      value: -0.13 +0.140 -0.137
+      value: -0.1271 +0.1400 -0.1367 +- 0.0075
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 17.0
       q2max: 19.0
-      value: 0.68 +0.116 -0.107 1e-9
+      value: 0.6812 +0.1140 -0.1042 +- 0.0238 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 17.0
       q2max: 19.0
-      value: 0.19 +0.153 -0.160
+      value: 0.1944 +0.1519 -0.1589 +- 0.0222
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 19.0
       q2max: 22.0
-      value: 0.47 +0.087 -0.081 1e-9
+      value: 0.4732 +0.0857 -0.0784 +- 0.0200 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 19.0
       q2max: 22.0
-      value: 0.02 +0.171 -0.175
+      value: 0.0204 +0.1708 -0.1741 +- 0.0144
     - name: <dBR/dq2>(B+->pimumu)
       q2min: 22.0
       q2max: 25.0
-      value: 0.36 +0.085 -0.076 1e-9
+      value: 0.3561 +0.0848 -0.0750 +- 0.0115 1e-9
     - name: <ACP>(B+->pimumu)
       q2min: 22.0
       q2max: 25.0
-      value: 0.19 +0.212 -0.226
+      value: 0.1891 +0.2074 -0.2233 +- 0.0345
   # ordering: (dBR/dq2, ACP) per bin, bins as listed above
-  correlation: [[1.00, 0.09, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1.00, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1.00, -0.13, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1.00, 0, 0, 0, 0, 0, 0, 0, 0],
-                [1.00, 0.00, 0, 0, 0, 0, 0, 0],
-                [1.00, 0, 0, 0, 0, 0, 0],
-                [1.00, 0.04, 0, 0, 0, 0],
-                [1.00, 0, 0, 0, 0],
-                [1.00, 0.09, 0, 0],
-                [1.00, 0, 0],
-                [1.00, 0.09],
+  correlation: [[1.00, 0.0906, 0.0251, 0.0005, 0.0369, 0.0005, 0.0318, 0.0008, 0.0286, 0.0003, 0.0223, 0.0005],
+                [1.00, 0.0000, 0.0006, 0.0005, 0.0008, 0.0005, 0.0007, -0.0001, 0.0003, 0.0001, 0.0004],
+                [1.00, -0.1213, 0.0283, 0.0001, 0.0250, 0.0006, 0.0234, 0.0003, 0.0169, 0.0005],
+                [1.00, 0.0002, 0.0004, 0.0004, 0.0002, 0.0000, 0.0003, 0.0001, 0.0006],
+                [1.00, 0.0006, 0.0359, 0.0003, 0.0324, 0.0001, 0.0244, 0.0005],
+                [1.00, 0.0002, 0.0005, -0.0001, 0.0004, 0.0002, 0.0005],
+                [1.00, 0.0401, 0.0286, 0.0002, 0.0220, -0.0004],
+                [1.00, 0.0000, 0.0002, 0.0001, 0.0002],
+                [1.00, 0.0855, 0.0202, -0.0003],
+                [1.00, 0.0001, 0.0006],
+                [1.00, 0.0906],
                 [1.00]]
 
 LHCb Bs->K*mumu 2018:
