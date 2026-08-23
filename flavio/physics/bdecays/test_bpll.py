@@ -1,5 +1,7 @@
 import unittest
+import warnings
 import numpy as np
+from scipy.integrate import IntegrationWarning
 from .bpll import *
 from . import bpll_subleading
 from flavio.physics.eft import WilsonCoefficients
@@ -70,6 +72,15 @@ class TestBPll(unittest.TestCase):
         expected = (2.0 - 1.0j) / q2 + (3.0 + 4.0j) + (-0.5 + 0.25j) * q2
         result = bpll_subleading._deltaC9_polynomial_par(q2, park, 'B0', 'K0')
         self.assertEqual(result, expected)
+
+    def test_bpiee_total_br_deltaC9_pole(self):
+        park = par.copy()
+        park['B+->pi+ deltaC9 a1 Re'] = 0.02
+        prediction = bpll_dbrdq2_Belle_func('B+', 'pi+', 'e')
+        with warnings.catch_warnings():
+            warnings.simplefilter('error', IntegrationWarning)
+            br = prediction(wc_obj, park)
+        self.assertAlmostEqual(br, 2.7219956387472086e-8, delta=1e-11)
 
     def test_bskll_subleading_ckm_hk(self):
         flavio.sm_prediction('dBR/dq2(Bs->Kmumu)', q2=5)

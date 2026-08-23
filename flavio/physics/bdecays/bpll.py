@@ -1,7 +1,7 @@
 r"""Functions for exclusive $B\to P\ell^+\ell^-$ decays."""
 
 import flavio
-from math import sqrt,pi
+from math import exp, log, sqrt, pi
 from flavio.physics.bdecays.common import lambda_K, beta_l, meson_quark, meson_ff
 from flavio.physics import ckm
 from flavio.classes import AuxiliaryQuantity
@@ -157,10 +157,31 @@ def bpll_dbrdq2_Belle_func(B, P, lep):
             mB = par['m_'+B]
             mP = par['m_'+P]
             ml = par['m_'+lep]
-            ml = par['m_'+lep]
             q2max = (mB-mP)**2
             q2min = (ml+ml)**2
-            return bpll_dbrdq2_int(q2min, q2max, wc_obj, par, B, P, lep, epsrel=0.0002)*(q2max-q2min)
+
+            # Integrate in log(q2) to resolve photon-pole-like contributions
+            # close to the electron threshold. Split at the boundaries of the
+            # low-, intermediate-, and high-q2 subleading implementations.
+            def integrand_logq2(logq2):
+                q2 = exp(logq2)
+                return q2 * bpll_dbrdq2(q2, wc_obj, par, B, P, lep)
+
+            internal_boundaries = tuple(
+                boundary for boundary in (9., 14.)
+                if q2min < boundary < q2max
+            )
+            boundaries = (q2min, *internal_boundaries, q2max)
+            return sum(
+                flavio.math.integrate.nintegrate(
+                    integrand_logq2,
+                    log(lower),
+                    log(upper),
+                    epsrel=0.0002,
+                    limit=200,
+                )
+                for lower, upper in zip(boundaries[:-1], boundaries[1:])
+            )
     return fct
 
 def bpll_dbrdq2_func(B, P, lep):
