@@ -191,24 +191,24 @@
 # Subleading hadronic effects in B->Pll
 -
   values:
-    - B0->K0 deltaC9 a3 Re: 0 ± 0.03 # see 1411.3161v4
-    - B+->K+ deltaC9 a3 Re: 0 ± 0.03
+    - B0->K0 deltaC9 a2 Re: 0 ± 0.03 # see 1411.3161v4
+    - B+->K+ deltaC9 a2 Re: 0 ± 0.03
   correlation: 0.99
 -
   values:
-    - B0->K0 deltaC9 a3 Im: 0 ± 0.03 # see 1411.3161v4
-    - B+->K+ deltaC9 a3 Im: 0 ± 0.03
+    - B0->K0 deltaC9 a2 Im: 0 ± 0.03 # see 1411.3161v4
+    - B+->K+ deltaC9 a2 Im: 0 ± 0.03
   correlation: 0.99
 # CKM-resolved subleading hadronic effects in B->pill
 -
   values:
-    - B0->pi0 deltaC9 a3 Re: 0 ± 0.03
-    - B+->pi+ deltaC9 a3 Re: 0 ± 0.03
+    - B0->pi0 deltaC9 a2 Re: 0 ± 0.03
+    - B+->pi+ deltaC9 a2 Re: 0 ± 0.03
   correlation: 0.99
 -
   values:
-    - B0->pi0 deltaC9 a3 Im: 0 ± 0.03
-    - B+->pi+ deltaC9 a3 Im: 0 ± 0.03
+    - B0->pi0 deltaC9 a2 Im: 0 ± 0.03
+    - B+->pi+ deltaC9 a2 Im: 0 ± 0.03
   correlation: 0.99
 # B->D* form factors, HFAG 2016
 -

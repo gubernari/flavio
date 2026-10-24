@@ -47,15 +47,21 @@ def _eps_u_over_t(par, B, P):
 
 def _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9'):
     process = B + '->' + P
+    a0 = par[process + ' ' + pname + ' a0 Re'] + 1j * par[process + ' ' + pname + ' a0 Im']
     a1 = par[process + ' ' + pname + ' a1 Re'] + 1j * par[process + ' ' + pname + ' a1 Im']
     a2 = par[process + ' ' + pname + ' a2 Re'] + 1j * par[process + ' ' + pname + ' a2 Im']
-    a3 = par[process + ' ' + pname + ' a3 Re'] + 1j * par[process + ' ' + pname + ' a3 Im']
-    return a1 / q2 + a2 + a3 * q2
+    return a0 / q2 + a1 + a2 * q2
 
 
-def _deltaC9_constant_par(par, B, P, pname='deltaC9'):
+# pivot (in GeV^2) of the linear high-q^2 shift c1 + c2 (q2 - Q2_PIVOT_DELTAC9_HIGH)
+Q2_PIVOT_DELTAC9_HIGH = 17.0
+
+
+def _deltaC9_constant_par(q2, par, B, P, pname='deltaC9'):
     process = B + '->' + P
-    return par[process + ' ' + pname + ' c Re'] + 1j * par[process + ' ' + pname + ' c Im']
+    c1 = par[process + ' ' + pname + ' c1 Re'] + 1j * par[process + ' ' + pname + ' c1 Im']
+    c2 = par[process + ' ' + pname + ' c2 Re'] + 1j * par[process + ' ' + pname + ' c2 Im']
+    return c1 + c2 * (q2 - Q2_PIVOT_DELTAC9_HIGH)
 
 
 # One possibility is to parametrize the effective shift in C7 as a simple
@@ -71,9 +77,9 @@ def helicity_amps_deltaC9_polynomial(q2, par, B, P):
     deltaC9 = _deltaC9_polynomial_par(q2, par, B, P, pname='deltaC9')
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
 
-# a constant shift, e.g. for high q^2
+# a shift linear in q2 around Q2_PIVOT_DELTAC9_HIGH, for high q^2
 def helicity_amps_deltaC9_constant(q2, par, B, P):
-    deltaC9 = _deltaC9_constant_par(par, B, P, pname='deltaC9')
+    deltaC9 = _deltaC9_constant_par(q2, par, B, P, pname='deltaC9')
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
 
 
@@ -89,10 +95,10 @@ def helicity_amps_deltaC9_hk_polynomial(q2, par, B, P):
 
 
 def helicity_amps_deltaC9_hk_constant(q2, par, B, P):
-    r"""Constant high-$q^2$ analogue of `helicity_amps_deltaC9_hk_polynomial`."""
+    r"""High-$q^2$ (linear shift) analogue of `helicity_amps_deltaC9_hk_polynomial`."""
     eps_u = _eps_u_over_t(par, B, P)
-    deltaC9_H = _deltaC9_constant_par(par, B, P, pname='deltaC9')
-    deltaC9_K = _deltaC9_constant_par(par, B, P, pname='deltaC9K')
+    deltaC9_H = _deltaC9_constant_par(q2, par, B, P, pname='deltaC9')
+    deltaC9_K = _deltaC9_constant_par(q2, par, B, P, pname='deltaC9K')
     deltaC9 = (1 + eps_u) * deltaC9_H - eps_u * deltaC9_K
     return helicity_amps_deltaC9(q2, deltaC9, par, B, P)
 
@@ -162,7 +168,7 @@ for had in [('B0','K0'), ('B+','K+'),]:
     i = Implementation(name=iname, quantity=quantity,
                    function=fct_deltaC9_polynomial(B=had[0], P=had[1]))
     i.set_description(r"Effective shift in the Wilson coefficient $C_9(\mu_b)$"
-                      r" as $a_1/q^2+a_2+a_3q^2$.")
+                      r" as $a_0/q^2+a_1+a_2q^2$.")
 
 
 # AuxiliaryQuantity & Implementatation: subleading effects at HIGH q^2
@@ -176,11 +182,12 @@ for had in [('B0','K0'), ('B+','K+'), ]:
                         ' subleading hadronic effects (i.e. all effects not included'
                         r'elsewhere) at $q^2$ above the charmonium resonances')
 
-        # Implementation: C9 constant shift
+        # Implementation: C9 shift c1 + c2 (q2 - 17 GeV^2)
         iname = process + ' deltaC9 shift'
         i = Implementation(name=iname, quantity=quantity,
                        function=fct_deltaC9_constant(B=had[0], P=had[1]))
-        i.set_description(r"Effective constant shift in the Wilson coefficient $C_9(\mu_b)$.")
+        i.set_description(r"Effective shift in the Wilson coefficient $C_9(\mu_b)$,"
+                          r" $c_1+c_2(q^2-17\,\mathrm{GeV}^2)$.")
 
 
 # AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in b->d B->Pll
@@ -197,7 +204,7 @@ for had in [('B0', 'pi0'), ('B+', 'pi+'), ('Bs', 'K0')]:
                    function=fct_deltaC9_hk_polynomial(B=had[0], P=had[1]))
     i.set_description(r"Effective shift in $C_9(\mu_b)$ with CKM structure "
                       r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$"
-                      r" and expansion $a_1/q^2+a_2+a_3q^2$.")
+                      r" and expansion $a_0/q^2+a_1+a_2q^2$.")
 
     quantity = process + ' subleading effects at high q2'
     a = AuxiliaryQuantity(name=quantity, arguments=['q2', 'cp_conjugate'])
@@ -207,5 +214,5 @@ for had in [('B0', 'pi0'), ('B+', 'pi+'), ('Bs', 'K0')]:
     iname = process + ' deltaC9 H+K shift'
     i = Implementation(name=iname, quantity=quantity,
                    function=fct_deltaC9_hk_constant(B=had[0], P=had[1]))
-    i.set_description(r"Effective constant shift in $C_9(\mu_b)$ with CKM "
+    i.set_description(r"Effective shift $c_1+c_2(q^2-17\,\mathrm{GeV}^2)$ in $C_9(\mu_b)$ with CKM "
                       r"structure $(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$.")

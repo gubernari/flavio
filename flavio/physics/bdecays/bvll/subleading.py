@@ -27,18 +27,24 @@ def _deltaC_polynomial_par(q2, par, B, V, pname, h):
 
 def _deltaC9_expansion_par(q2, par, B, V, pname, h):
     process = B + '->' + V
+    a0 = (par[process + ' ' + pname + ' a0_' + h + ' Re']
+          + 1j * par[process + ' ' + pname + ' a0_' + h + ' Im'])
     a1 = (par[process + ' ' + pname + ' a1_' + h + ' Re']
           + 1j * par[process + ' ' + pname + ' a1_' + h + ' Im'])
     a2 = (par[process + ' ' + pname + ' a2_' + h + ' Re']
           + 1j * par[process + ' ' + pname + ' a2_' + h + ' Im'])
-    a3 = (par[process + ' ' + pname + ' a3_' + h + ' Re']
-          + 1j * par[process + ' ' + pname + ' a3_' + h + ' Im'])
-    return a1 / q2 + a2 + a3 * q2
+    return a0 / q2 + a1 + a2 * q2
 
 
-def _deltaC_constant_par(par, B, V, pname, h):
+# pivot (in GeV^2) of the linear high-q^2 shift c1 + c2 (q2 - Q2_PIVOT_DELTAC9_HIGH)
+Q2_PIVOT_DELTAC9_HIGH = 17.0
+
+
+def _deltaC_constant_par(q2, par, B, V, pname, h):
     process = B + '->' + V
-    return par[process + ' ' + pname + ' c_' + h + ' Re'] + 1j * par[process + ' ' + pname + ' c_' + h + ' Im']
+    c1 = par[process + ' ' + pname + ' c1_' + h + ' Re'] + 1j * par[process + ' ' + pname + ' c1_' + h + ' Im']
+    c2 = par[process + ' ' + pname + ' c2_' + h + ' Re'] + 1j * par[process + ' ' + pname + ' c2_' + h + ' Im']
+    return c1 + c2 * (q2 - Q2_PIVOT_DELTAC9_HIGH)
 
 
 class HelicityAmpsDeltaC(object):
@@ -76,7 +82,7 @@ class HelicityAmpsDeltaC_77p_polynomial(HelicityAmpsDeltaC):
     $C_7$ (for the 0 and $-$ amplitudes), $C_7'$ (for the $+$ amplitude),
     and optional low-$q^2$ shifts in $C_9$ for all helicities. The $C_7^{(\prime)}$
     shifts are first-order polynomials in $q^2$, while the $C_9$ shifts have the
-    form $a_1/q^2+a_2+a_3q^2$.
+    form $a_0/q^2+a_1+a_2q^2$.
 
     The extra $C_9$ pieces default to zero through the parameter tables, so
     the existing predictions are unchanged unless these parameters are set
@@ -131,16 +137,16 @@ class HelicityAmpsDeltaC_77p_hk_polynomial(HelicityAmpsDeltaC):
 
 
 class HelicityAmpsDeltaC_9_shift(HelicityAmpsDeltaC):
-    r"""Helicity amps from an effective $q^2$-independent shift in the Wilson
-    coefficients."""
+    r"""Helicity amps from an effective shift $c_1+c_2(q^2-17\,\mathrm{GeV}^2)$ in the Wilson
+    coefficients (one per helicity)."""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def __call__(self):
         ha = {}
-        deltaC9_0 = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '0')
-        deltaC9_pl = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '+')
-        deltaC9_mi = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '-')
+        deltaC9_0 = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '0')
+        deltaC9_pl = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '+')
+        deltaC9_mi = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '-')
         ha['0', 'V'] = self.ha_deltaC(deltaC9_0, 'v')['0', 'V']
         ha['pl', 'V'] = self.ha_deltaC(deltaC9_pl, 'v')['pl', 'V']
         ha['mi', 'V'] = self.ha_deltaC(deltaC9_mi, 'v')['mi', 'V']
@@ -157,12 +163,12 @@ class HelicityAmpsDeltaC_9_hk_shift(HelicityAmpsDeltaC):
     def __call__(self):
         eps_u = _eps_u_over_t(self.par, self.B, self.V)
         ha = {}
-        deltaC9_0_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '0')
-        deltaC9_0_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '0')
-        deltaC9_pl_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '+')
-        deltaC9_pl_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '+')
-        deltaC9_mi_H = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9', '-')
-        deltaC9_mi_K = _deltaC_constant_par(self.par, self.B, self.V, 'deltaC9K', '-')
+        deltaC9_0_H = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '0')
+        deltaC9_0_K = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9K', '0')
+        deltaC9_pl_H = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '+')
+        deltaC9_pl_K = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9K', '+')
+        deltaC9_mi_H = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9', '-')
+        deltaC9_mi_K = _deltaC_constant_par(self.q2, self.par, self.B, self.V, 'deltaC9K', '-')
         deltaC9_0 = (1 + eps_u) * deltaC9_0_H - eps_u * deltaC9_0_K
         deltaC9_pl = (1 + eps_u) * deltaC9_pl_H - eps_u * deltaC9_pl_K
         deltaC9_mi = (1 + eps_u) * deltaC9_mi_H - eps_u * deltaC9_mi_K
@@ -227,7 +233,7 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
                       r" (in the $0$ and $-$ helicity amplitudes) and"
                       r" $C_7'(\mu_b)$ (in the $+$ helicity amplitude)"
                       r" as a first-order polynomial in $q^2$, optionally"
-                      r" supplemented by shifts $a_1/q^2+a_2+a_3q^2$ in"
+                      r" supplemented by shifts $a_0/q^2+a_1+a_2q^2$ in"
                       r" $C_9(\mu_b)$ for the $0$, $+$, and $-$ helicity"
                       r" amplitudes. The added $C_9$ parameters default to"
                       r" zero, so the previous predictions are recovered"
@@ -260,11 +266,12 @@ for had in [('B0','K*0'), ('B+','K*+'), ('Bs','phi'), ]:
                     ' subleading hadronic effects (i.e. all effects not included'
                     r'elsewhere) at $q^2$ above the charmonium resonances')
 
-    # Implementation: C9 constant shift
+    # Implementation: C9 shift c1 + c2 (q2 - 17 GeV^2)
     iname = process + ' deltaC9 shift'
     i = Implementation(name=iname, quantity=quantity,
                    function=fct_deltaC9_constant(B=had[0], V=had[1]))
-    i.set_description(r"Effective constant shift in the Wilson coefficient $C_9(\mu_b)$.")
+    i.set_description(r"Effective shift in the Wilson coefficient $C_9(\mu_b)$,"
+                      r" $c_1+c_2(q^2-17\,\mathrm{GeV}^2)$.")
 
 
 # AuxiliaryQuantity & Implementation: CKM-resolved subleading effects in Bs->K*0ll at HIGH q^2
@@ -278,5 +285,5 @@ a.description = ('Contribution to ' + process + ' helicity amplitudes from'
 iname = process + ' deltaC9 H+K shift'
 i = Implementation(name=iname, quantity=quantity,
                function=fct_deltaC9_hk_constant(B='Bs', V='K*0'))
-i.set_description(r"Effective constant shift in $C_9(\mu_b)$ with CKM structure "
+i.set_description(r"Effective shift $c_1+c_2(q^2-17\,\mathrm{GeV}^2)$ in $C_9(\mu_b)$ with CKM structure "
                   r"$(1+\lambda_u/\lambda_t)H-(\lambda_u/\lambda_t)K$.")

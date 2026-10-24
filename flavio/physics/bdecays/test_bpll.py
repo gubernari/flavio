@@ -56,26 +56,46 @@ class TestBPll(unittest.TestCase):
         h0 = get_subleading(5, wc_obj, par0, 'B0', 'pi0', 'mu', False)
         self.assertEqual(h0['V'], 0)
         park = par.copy()
-        park['B0->pi0 deltaC9K a2 Re'] = 1.0
+        park['B0->pi0 deltaC9K a1 Re'] = 1.0
         hk = get_subleading(5, wc_obj, park, 'B0', 'pi0', 'mu', False)
         self.assertNotEqual(hk['V'], h0['V'])
 
     def test_bpll_lowq2_deltaC9_expansion(self):
         park = par.copy()
-        park['B0->K0 deltaC9 a1 Re'] = 2.0
-        park['B0->K0 deltaC9 a1 Im'] = -1.0
-        park['B0->K0 deltaC9 a2 Re'] = 3.0
-        park['B0->K0 deltaC9 a2 Im'] = 4.0
-        park['B0->K0 deltaC9 a3 Re'] = -0.5
-        park['B0->K0 deltaC9 a3 Im'] = 0.25
+        park['B0->K0 deltaC9 a0 Re'] = 2.0
+        park['B0->K0 deltaC9 a0 Im'] = -1.0
+        park['B0->K0 deltaC9 a1 Re'] = 3.0
+        park['B0->K0 deltaC9 a1 Im'] = 4.0
+        park['B0->K0 deltaC9 a2 Re'] = -0.5
+        park['B0->K0 deltaC9 a2 Im'] = 0.25
         q2 = 2.0
         expected = (2.0 - 1.0j) / q2 + (3.0 + 4.0j) + (-0.5 + 0.25j) * q2
         result = bpll_subleading._deltaC9_polynomial_par(q2, park, 'B0', 'K0')
         self.assertEqual(result, expected)
 
+    def test_bpll_highq2_deltaC9_linear(self):
+        park = par.copy()
+        park['B+->K+ deltaC9 c1 Re'] = 0.5
+        park['B+->K+ deltaC9 c2 Re'] = -0.2
+        park['B+->K+ deltaC9 c2 Im'] = 0.1
+        for q2 in (15.0, 17.0, 20.0):
+            expected = 0.5 + (-0.2 + 0.1j) * (q2 - 17.0)
+            result = bpll_subleading._deltaC9_constant_par(q2, park, 'B+', 'K+')
+            self.assertAlmostEqual(result, expected)
+        # c2 alone leaves the amplitude unchanged at the pivot q2 = 17 GeV^2 only
+        park = par.copy()
+        park['B+->K+ deltaC9 c2 Re'] = 1.0
+        for q2, changed in ((17.0, False), (20.0, True)):
+            h0 = get_subleading(q2, wc_obj, par, 'B+', 'K+', 'mu', False)
+            hk = get_subleading(q2, wc_obj, park, 'B+', 'K+', 'mu', False)
+            if changed:
+                self.assertNotEqual(hk['V'], h0['V'])
+            else:
+                self.assertAlmostEqual(hk['V'], h0['V'])
+
     def test_bpiee_total_br_deltaC9_pole(self):
         park = par.copy()
-        park['B+->pi+ deltaC9 a1 Re'] = 0.02
+        park['B+->pi+ deltaC9 a0 Re'] = 0.02
         prediction = bpll_dbrdq2_Belle_func('B+', 'pi+', 'e')
         with warnings.catch_warnings():
             warnings.simplefilter('error', IntegrationWarning)
@@ -88,7 +108,7 @@ class TestBPll(unittest.TestCase):
         h0 = get_subleading(5, wc_obj, par0, 'Bs', 'K0', 'mu', False)
         self.assertEqual(h0['V'], 0)
         park = par.copy()
-        park['Bs->K0 deltaC9K a2 Re'] = 1.0
+        park['Bs->K0 deltaC9K a1 Re'] = 1.0
         hk = get_subleading(5, wc_obj, park, 'Bs', 'K0', 'mu', False)
         self.assertNotEqual(hk['V'], h0['V'])
 
